@@ -83,11 +83,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'ChooseCardCtrl'
             },
             'fabContent': {
-                template: '<button class="possibly-hidden-fab button button-fab button-fab-bottom-right expanded button-energized-900 read-now" ng-class="{hidden: !fab}"><i class="icon ion-android-book"></i></button>',
+                template: '<button ui-sref="app.record" class="possibly-hidden-fab button button-fab button-fab-bottom-right expanded button-energized-900 read-now" ng-class="{hidden: !fab}"><i class="icon ion-android-book"></i></button>',
                 controller: function($timeout, $scope) {
-                  $scope.fab = false
+                    $scope.fab = false
 
-                  window.kakikaki = $scope
+                    window.kakikaki = $scope
                 }
             }
         }
@@ -105,6 +105,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: function($timeout, $scope) {
                     $timeout(function() {
                         document.getElementById('fab-gallery').classList.toggle('on');
+                        // $scope.fab = false;
+
                     }, 600);
                 }
             }
