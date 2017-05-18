@@ -155,12 +155,32 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
     })
-    .controller('RecordCtrl', function($scope, $rootScope, $stateParams, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('RecordCtrl', function($location, $sce, $scope, $rootScope, $stateParams, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
         $scope.$parent.setExpanded(true);
         $scope.$parent.setHeaderFab('right');
+
+        var xys = [];
+        var stopAudio = recordAudio(appendEventData(xys));
+        $scope.stopAudio = function() {
+          stopAudio(function(blob) {
+            window.latestRecording = blob
+            window.latestXys = xys
+            console.log({blob});
+            // var audioFile = URL.createObjectURL(blob);
+            // $scope.setAudioFile(audioFile);
+            $scope.$apply()
+
+            var canvas = drawCanvasOfValues(document.body.clientWidth, 300, xys)
+            document.getElementById('canvas-placeholder').appendChild(canvas)
+          })
+        }
+
+      $scope.setAudioFile = function(af) {
+        $scope.audioFile = af;
+      }
 
         $timeout(function() {
             ionicMaterialMotion.fadeSlideIn({

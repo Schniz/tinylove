@@ -5,7 +5,9 @@
                 Please put the phone<br/> inside your Storybox
             </div>
             <p class="micro">Don't worry you'll get it back at the end :)</p>
-            <img class="phonebox" src="img/box.png">
+            <img ng-if="!audioFile" class="phonebox" src="img/box.png">
+            <audio controls="controls" ng-if="audioFile" ng-src="{{audioFile}}"></audio>
+            <div id="canvas-placeholder"></div>
         </div>
     </ion-content>
 </ion-view>
