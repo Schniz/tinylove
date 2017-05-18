@@ -318,7 +318,6 @@ angular.module('starter.controllers', [])
       $scope.selected = function(card) {
         var newValue = !card.selected;
         var amountOfCardsRemaining = $scope.amountOfCardsRemaining()
-        console.log({amountOfCardsRemaining})
         var alreadySix = amountOfCardsRemaining <= 0;
         if (newValue && alreadySix) return;
         card.selected = newValue;
