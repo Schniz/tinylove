@@ -173,46 +173,72 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
 
+        $scope.tryConnect = function() {
+            $cordovaBluetoothSerial.discoverUnpaired().then(function(found) {
+
+                    $scope.devices = found;
+                    var device = $scope.devices.find(function(item) {
+                        return item.name === "eSpinner";
+                    })
+
+                    $scope.conn = $cordovaBluetoothSerial.connect(device.address).subscribe(
+                        function(x) {
+                            alert('connected!');
+
+                            // start recording
+                        });
+                },
+                function() {
+                    setTimeout($scope.tryConnect, 500);
+                });
+        }
 
         $ionicPlatform.ready(function() {
             try {
                 $cordovaBluetoothSerial.enable().then(function(found) {
+                        $scope.stat = "enabled";
                         $cordovaBluetoothSerial.isEnabled().then(function(found) {
+                                $scope.stat = "isEnabled";
                                 $cordovaBluetoothSerial.discoverUnpaired().then(function(found) {
-
+                                        $scope.stat = "found";
                                         $scope.devices = found;
                                         var device = $scope.devices.find(function(item) {
                                             return item.name === "eSpinner";
                                         })
-
+                                        $scope.stat = device.address;
                                         $scope.conn = $cordovaBluetoothSerial.connect(device.address).subscribe(
                                             function(x) {
-                                                alert('connected!');
+                                                $scope.stat = "connected!";
 
                                                 // start recording
                                             });
                                     },
                                     function() {
-                                        alert('not found devices')
+                                        $scope.stat = "nothing found";
+                                        setTimeout($scope.tryConnect, 500);
                                     });
                             },
                             function() {
-                                alert('not enabled');
+                                $scope.stat = "not enabled";
                             });
                     },
                     function() {
-                        alert('error enabling');
+                        $scope.stat = "cant enable";
                     });
 
             } catch (err) {
-                console.log(err);
+                $scope.stat = "error: " + err;
             }
         });
 
 
         $scope.lightUp = function() {
+            $cordovaVibration.vibrate(1000);
+            setTimeout(function() {
+                $cordovaVibration.vibrate(1000);
+            }, 1000);
 
-            bluetoothSerial.write(1, function() {
+            $cordovaBluetoothSerial.write(1, function() {
                 console.log("boom");
             }, function(err) {
                 console.log("no boom " + err);
