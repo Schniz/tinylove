@@ -188,3 +188,27 @@ p {
 .selectable-kaki.selected .selectable-v {
     opacity: 1;
 }
+
+.finished--song-title-input {
+    font-size: 2em !important;
+    margin: auto;
+    display: block;
+    text-align: center;
+    margin-top: 1em;
+    padding: .5em;
+}
+
+.emotion {
+    opacity: 0.5;
+    width: 10vw;
+    transition: 0.1s ease all;
+}
+
+.emotion:hover {
+    opacity: 0.8;
+}
+
+.emotion.selected {
+    opacity: 1;
+    width: 16vw !important;
+}

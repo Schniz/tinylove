@@ -22,8 +22,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $sceDelegateProvider) {
 
+    $sceDelegateProvider.resourceUrlWhitelist(['**']);
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
 
@@ -47,8 +48,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'RecordCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-checkmark"></i></button>',
-                controller: function($timeout) {
+                template: '<button ng-click="stopRecording()" id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-checkmark"></i></button>',
+                controller: function($timeout, $scope) {
+                  $scope.stopRecording = function() {
+                    $scope.$$nextSibling.stopAudio(function(blob) {
+                      console.log({blob})
+                    })
+                  }
                     $timeout(function() {
                         document.getElementById('fab-activity').classList.toggle('on');
                     }, 200);
@@ -88,6 +94,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                     $scope.fab = false
 
                     window.kakikaki = $scope
+                }
+            }
+        }
+    })
+
+    .state('app.finished', {
+        url: '/finished',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/finished.html',
+                controller: 'FinishedCtrl'
+            },
+            'fabContent': {
+                template: '<button ui-sref="app.choose-card" id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-android-book"></i></button>',
+                controller: function($timeout, $scope) {
+                    $timeout(function() {
+                        document.getElementById('fab-gallery').classList.toggle('on');
+                        // $scope.fab = false;
+
+                    }, 600);
                 }
             }
         }

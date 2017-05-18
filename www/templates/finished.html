@@ -1,0 +1,13 @@
+<ion-view view-title="Choose {{amountOfCardsRemaining()}} Cards">
+  <ion-content ng-class="{expanded:isExpanded}">
+    <div class="list">
+      <input placeholder="Story title" class="finished--song-title-input" type="text">
+      <div class="list" style="text-align: center">
+        <img class="emotion" ng-repeat="emotion in emotions" ng-class="{selected: emotion.selected}" ng-click="select(emotion)" src="{{emotion.img}}" style="width: 10vw;" alt="{{emotion.id}}">
+      </div>
+      <audio controls="controls" ng-if="audioFile" ng-src="{{audioFile}}"></audio>
+      <div id="canvas-placeholder"></div>
+      <button class="button">share!</button>
+    </div>
+  </ion-content>
+</ion-view>
