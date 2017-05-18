@@ -254,7 +254,7 @@ angular.module('starter.controllers', [])
         $scope.lightUp = function() {
             $cordovaVibration.vibrate(1000);
             setTimeout(function() {
-                $cordovaVibration.vibrate(1000);
+                $cordovaVibration.vibrate(2000);
             }, 1000);
 
             $cordovaBluetoothSerial.write(1, function() {
@@ -337,7 +337,7 @@ angular.module('starter.controllers', [])
                     name: "Daenerys Targerian",
                     img: "img/daenerys.jpg"
                 },
-                audio: "/fixtures/sound1.mp4"
+                audio: "fixtures/sound1.mp4"
             },
             {
                 title: "asd",
@@ -350,7 +350,7 @@ angular.module('starter.controllers', [])
                     name: "Daenerys Targerian",
                     img: "img/daenerys.jpg"
                 },
-                audio: "/fixtures/sound2.mp4"
+                audio: "fixtures/sound2.mp4"
             }
         ]
 
