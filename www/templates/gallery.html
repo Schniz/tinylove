@@ -8,7 +8,9 @@
                     <h2>{{post.user.name}}</h2>
                     <p>{{post.date | date: 'short'}}</p>
                 </div>
-                <div class="item item-body post-body">{{post.title}}
+                <div class="item item-body post-body">
+                  {{post.title}}
+                  <audio src="{{post.audio}}" controls="controls" style="display: block; width:100%;"></audio>
                     <div class="post-cards">
                         <div class="small-card" ng-repeat="card in post.cards">
                             <img ng-src="{{card.img}}">
@@ -16,8 +18,6 @@
                     </div>
                     <p> <a class="subdued">{{post.likes}} Tiny Loves</a> <a class="subdued">{{post.comments}} Comments</a> </p>
                     <div class="player"> </div>
-
-
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left">
                     <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-heart"></i> Love </a>

@@ -75,6 +75,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     })
 
+    .state('app.choose-card', {
+        url: '/choose-card',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/choose-card.html',
+                controller: 'ChooseCardCtrl'
+            },
+            'fabContent': {
+                template: '<button class="possibly-hidden-fab button button-fab button-fab-bottom-right expanded button-energized-900 read-now" ng-class="{hidden: !fab}"><i class="icon ion-android-book"></i></button>',
+                controller: function($timeout, $scope) {
+                  $scope.fab = false
+
+                  window.kakikaki = $scope
+                }
+            }
+        }
+    })
+
     .state('app.gallery', {
         url: '/gallery',
         views: {
@@ -83,8 +101,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'GalleryCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-android-book"></i></button>',
-                controller: function($timeout) {
+                template: '<button ui-sref="app.choose-card" id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-android-book"></i></button>',
+                controller: function($timeout, $scope) {
                     $timeout(function() {
                         document.getElementById('fab-gallery').classList.toggle('on');
                     }, 600);

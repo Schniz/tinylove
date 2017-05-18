@@ -1,0 +1,23 @@
+<ion-view view-title="Choose {{amountOfCardsRemaining()}} Cards">
+  <ion-content ng-class="{expanded:isExpanded}">
+    <div class="list">
+      <div class="list half">
+        <div role="button" class="card selectable-kaki" ng-class="{selected: card.selected}" ng-click="selected(card)" ng-repeat="card in firstPileOfCards">
+          <div class="selectable-v">
+            OKAY!
+          </div>
+          <img src="{{card.img}}">
+        </div>
+      </div>
+
+      <div class="list half">
+        <div role="button" class="card selectable-kaki" ng-class="{selected: card.selected}" ng-click="selected(card)" ng-repeat="card in secondPileOfCards">
+          <div class="selectable-v">
+            OKAY!
+          </div>
+          <img src="{{card.img}}">
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
