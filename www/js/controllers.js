@@ -175,37 +175,47 @@ angular.module('starter.controllers', [])
 
 
         $ionicPlatform.ready(function() {
-            $cordovaBluetoothSerial.enable().then(function(found) {
-                    $cordovaBluetoothSerial.isEnabled().then(function(found) {
-                            $cordovaBluetoothSerial.discoverUnpaired().then(function(found) {
+            try {
+                $cordovaBluetoothSerial.enable().then(function(found) {
+                        $cordovaBluetoothSerial.isEnabled().then(function(found) {
+                                $cordovaBluetoothSerial.discoverUnpaired().then(function(found) {
 
-                                    $scope.devices = found;
-                                    var device = $scope.devices.find(function(item) {
-                                        return item.name === "eSpinner";
-                                    })
+                                        $scope.devices = found;
+                                        var device = $scope.devices.find(function(item) {
+                                            return item.name === "eSpinner";
+                                        })
 
-                                    $scope.conn = $cordovaBluetoothSerial.connect(device.address).subscribe(
-                                        function(x) {
-                                            alert('connected!');
-                                        });
-                                },
-                                function() {
-                                    alert('not found devices')
-                                });
-                        },
-                        function() {
-                            alert('not enabled');
-                        });
-                },
-                function() {
-                    alert('error enabling');
-                });
+                                        $scope.conn = $cordovaBluetoothSerial.connect(device.address).subscribe(
+                                            function(x) {
+                                                alert('connected!');
+                                            });
+                                    },
+                                    function() {
+                                        alert('not found devices')
+                                    });
+                            },
+                            function() {
+                                alert('not enabled');
+                            });
+                    },
+                    function() {
+                        alert('error enabling');
+                    });
 
-
+            } catch (err) {
+                console.log(err);
+            }
         });
 
 
+        $scope.lightUp = function() {
 
+            bluetoothSerial.write(1, function() {
+                console.log("boom");
+            }, function(err) {
+                console.log("no boom " + err);
+            });
+        }
 
 
     })
