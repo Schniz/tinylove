@@ -156,12 +156,58 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaDeviceMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab(false);
+    alert('asdasd')
+    document.addEventListener("deviceready", function() {
+
+        $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
+            $scope.X = result.x;
+            $scope.Y = result.y;
+            $scope.Z = result.z;
+            var timeStamp = result.timestamp;
+        }, function(err) {
+            // An error occurred. Show a message to the user
+        });
+
+    }, false);
+
+    var options = { frequency: 20000 };
+
+    document.addEventListener("deviceready", function() {
+
+        var watch = $cordovaDeviceMotion.watchAcceleration(options);
+        watch.then(
+            null,
+            function(error) {
+                // An error occurred
+            },
+            function(result) {
+                var X = result.x;
+                var Y = result.y;
+                var Z = result.z;
+                var timeStamp = result.timestamp;
+            });
+
+
+        watch.clearWatch();
+        // OR
+        // $cordovaDeviceMotion.clearWatch(watch)
+        //     .then(function(result) {
+        //         // success
+        //     }, function(error) {
+        //         // error
+        //     });
+
+    }, false);
+
+    document.addEventListener("deviceready", function() {
+        alert('ready!')
+    }, false);
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
