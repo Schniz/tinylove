@@ -99,6 +99,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
     })
 
+    .state('app.finished', {
+        url: '/finished',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/finished.html',
+                controller: 'FinishedCtrl'
+            },
+            'fabContent': {
+                template: '<button ui-sref="app.choose-card" id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-android-book"></i></button>',
+                controller: function($timeout, $scope) {
+                    $timeout(function() {
+                        document.getElementById('fab-gallery').classList.toggle('on');
+                        // $scope.fab = false;
+
+                    }, 600);
+                }
+            }
+        }
+    })
+
     .state('app.gallery', {
         url: '/gallery',
         views: {

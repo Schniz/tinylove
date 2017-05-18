@@ -155,7 +155,7 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
     })
-    .controller('RecordCtrl', function($location, $sce, $scope, $rootScope, $stateParams, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('RecordCtrl', function($state, $sce, $scope, $rootScope, $stateParams, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
@@ -172,9 +172,8 @@ angular.module('starter.controllers', [])
             // var audioFile = URL.createObjectURL(blob);
             // $scope.setAudioFile(audioFile);
             $scope.$apply()
+            $state.go('app.finished')
 
-            var canvas = drawCanvasOfValues(document.body.clientWidth, 300, xys)
-            document.getElementById('canvas-placeholder').appendChild(canvas)
           })
         }
 
@@ -345,8 +344,6 @@ angular.module('starter.controllers', [])
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab(false);
 
-    window.kakipipi = $scope
-
     function setFab(val) {
         $scope.$$prevSibling.fab = val
     }
@@ -417,6 +414,37 @@ angular.module('starter.controllers', [])
     })
 
     $scope.kaki = "gal"
+})
+
+.controller('FinishedCtrl', function($scope, $rootScope, $ionicPlatform, $stateParams, $cordovaDeviceMotion, $cordovaVibration, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab(false);
+
+    var canvas = drawCanvasOfValues(document.body.clientWidth, 300, window.latestXys || [0, 1, 0, 1])
+    $timeout(function() {
+      console.log(canvas)
+      document.getElementById('canvas-placeholder').appendChild(canvas)
+    }, 100)
+
+  $scope.emotions = [
+    {id: 'like', img: 'http://i.imgur.com/LwCYmcM.gif'},
+    {id: 'love', img: 'http://i.imgur.com/k5jMsaH.gif'},
+    {id: 'haha', img: 'http://i.imgur.com/f93vCxM.gif'},
+    {id: 'yay', img: 'http://i.imgur.com/a44ke8c.gif'},
+    {id: 'wow', img: 'http://i.imgur.com/9xTkN93.gif'},
+    {id: 'sad', img: 'http://i.imgur.com/tFOrN5d.gif'},
+    {id: 'angry', img: 'http://i.imgur.com/1MgcQg0.gif'}
+  ]
+
+  $scope.select = function(e) {
+    $scope.emotions = $scope.emotions.map(function(emotion) {
+      emotion.selected = e === emotion
+      return emotion
+    })
+  }
 })
 
 ;
