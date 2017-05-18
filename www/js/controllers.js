@@ -139,86 +139,98 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab('right');
+.controller('ActivityCtrl', function($scope, $rootScope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+        $scope.$parent.setHeaderFab('right');
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideIn({
+                selector: '.animate-fade-slide-in .item'
+            });
+        }, 200);
+
+        // Activate ink for controller
+        ionicMaterialInk.displayEffect();
+    })
+    .controller('GalleryCtrl', function($scope, $ionicPlatform, $stateParams, $cordovaDeviceMotion, $cordovaVibration, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+        $scope.$parent.setHeaderFab(false);
+
+        ionicMaterialInk.displayEffect();
+
+        ionicMaterialMotion.pushDown({
+            selector: '.push-down'
+        });
+        ionicMaterialMotion.fadeSlideInRight({
             selector: '.animate-fade-slide-in .item'
         });
-    }, 200);
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-})
 
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $cordovaDeviceMotion) {
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab(false);
-    alert('asdasd')
-    document.addEventListener("deviceready", function() {
+        $rootScope.stories = [{
+            title: "A Sample book",
+            pic: "",
+            likes: 5,
+            comments: ["WOW", "AMAZING!!"]
+        }]
 
-        $cordovaDeviceMotion.getCurrentAcceleration().then(function(result) {
-            $scope.X = result.x;
-            $scope.Y = result.y;
-            $scope.Z = result.z;
-            var timeStamp = result.timestamp;
-        }, function(err) {
-            // An error occurred. Show a message to the user
+
+
+        // watch Acceleration options
+        $scope.options = {
+            frequency: 100, // Measure every 100ms
+            deviation: 25 // We'll use deviation to determine the shake event, best values in the range between 25 and 30
+        };
+
+        // Current measurements
+        $scope.measurements = {
+            x: null,
+            y: null,
+            z: null,
+            timestamp: null
+        }
+
+        // Previous measurements    
+        $scope.previousMeasurements = {
+            x: null,
+            y: null,
+            z: null,
+            timestamp: null
+        }
+
+        //Start Watching method
+        $scope.startWatching = function() {
+            // Device motion configuration
+            $scope.watch = $cordovaDeviceMotion.watchAcceleration($scope.options);
+
+            // Device motion initilaization
+            $scope.watch.then(null, function(error) {
+                console.log('Error');
+            }, function(result) {
+                // Set current data  
+                $scope.measurements.x = result.x;
+                $scope.measurements.y = result.y;
+                $scope.measurements.z = result.z;
+                $scope.measurements.timestamp = result.timestamp;
+
+            });
+        };
+
+        // Stop watching method
+        $scope.stopWatching = function() {
+            $scope.watch.clearWatch();
+        }
+
+        $ionicPlatform.ready(function() {
+            $scope.startWatching();
         });
 
-    }, false);
 
-    var options = { frequency: 20000 };
-
-    document.addEventListener("deviceready", function() {
-
-        var watch = $cordovaDeviceMotion.watchAcceleration(options);
-        watch.then(
-            null,
-            function(error) {
-                // An error occurred
-            },
-            function(result) {
-                var X = result.x;
-                var Y = result.y;
-                var Z = result.z;
-                var timeStamp = result.timestamp;
-            });
-
-
-        watch.clearWatch();
-        // OR
-        // $cordovaDeviceMotion.clearWatch(watch)
-        //     .then(function(result) {
-        //         // success
-        //     }, function(error) {
-        //         // error
-        //     });
-
-    }, false);
-
-    document.addEventListener("deviceready", function() {
-        alert('ready!')
-    }, false);
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-
-    ionicMaterialMotion.pushDown({
-        selector: '.push-down'
-    });
-    ionicMaterialMotion.fadeSlideInRight({
-        selector: '.animate-fade-slide-in .item'
-    });
-
-})
+    })
 
 ;

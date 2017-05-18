@@ -1,11 +1,11 @@
 <ion-view view-title="Gallery">
     <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-        <div> direction {{X}} {{Y}} {{Z}}</div>
+        <div></div>
+        <br/>
         <div class="list half">
-
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
+            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap" ng-repeat="story in stories">
                 <div class="ink dark-bg">
-                    <h2>Where's Elsa?</h2>
+                    <h2> direction: {{measurements.x}} {{measurements.y}} {{measurements.z}}</h2>
                     <img class="full-image" src="img/sansa-snowcastle3.jpg">
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left">
@@ -19,7 +19,7 @@
             </div>
             <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
                 <div class="ink dark-bg">
-                    <h2>Hmm. Hope nobody destroys this!</h2>
+                    <h2>{{err}} {{ori}}</h2>
                     <img class="full-image" src="img/sansa-snowcastle.png">
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left">
