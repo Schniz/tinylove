@@ -49,4 +49,13 @@ window.recordAudio = (function() {
       stop(cb);
     };
   };
-})
+})();
+
+window.recordAudio.streamingAudioEventToGainPercentage = function(event) {
+  var data = event.inputBuffer.getChannelData(0);
+  var avg =
+    data.reduce(function(acc, curr) {
+      return acc + Math.abs(curr);
+    }, 0) / data.length;
+  return Math.round(avg * 100);
+};
