@@ -155,7 +155,7 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
     })
-    .controller('GalleryCtrl', function($scope, $ionicPlatform, $stateParams, $cordovaDeviceMotion, $cordovaVibration, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+    .controller('GalleryCtrl', function($scope, $rootScope, $ionicPlatform, $stateParams, $cordovaDeviceMotion, $cordovaVibration, $timeout, ionicMaterialInk, ionicMaterialMotion) {
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
@@ -167,68 +167,88 @@ angular.module('starter.controllers', [])
         ionicMaterialMotion.pushDown({
             selector: '.push-down'
         });
-        ionicMaterialMotion.fadeSlideInRight({
-            selector: '.animate-fade-slide-in .item'
-        });
+        // ionicMaterialMotion.fadeSlideInRight({
+        //     selector: '.animate-fade-slide-in .item'
+        // });
 
+        $rootScope.cards = [{
+                id: 0,
+                img: "img/0.png"
+            }, {
+                id: 1,
+                img: "img/1.png"
+            },
+            {
+                id: 2,
+                img: "img/2.png"
+            },
+            {
+                id: 3,
+                img: "img/3.png"
+            },
+            {
+                id: 4,
+                img: "img/4.png"
+            },
+            {
+                id: 5,
+                img: "img/5.png"
+            },
+            {
+                id: 6,
+                img: "img/6.png"
+            },
+            {
+                id: 7,
+                img: "img/7.png"
+            },
+            {
+                id: 8,
+                img: "img/8.png"
+            }
+        ]
 
-        $rootScope.stories = [{
-            title: "A Sample book",
-            pic: "",
-            likes: 5,
-            comments: ["WOW", "AMAZING!!"]
-        }]
-
-
-
-        // watch Acceleration options
-        $scope.options = {
-            frequency: 100, // Measure every 100ms
-            deviation: 25 // We'll use deviation to determine the shake event, best values in the range between 25 and 30
-        };
-
-        // Current measurements
-        $scope.measurements = {
-            x: null,
-            y: null,
-            z: null,
-            timestamp: null
+        $scope.idToCard = function(id) {
+            return $rootScope.cards.find(function(element) {
+                return element.id == id;
+            })
         }
 
-        // Previous measurements    
-        $scope.previousMeasurements = {
-            x: null,
-            y: null,
-            z: null,
-            timestamp: null
-        }
+        var date = Date.now();
+        $scope.stories = [{
+                title: "The best story ever",
+                likes: 4,
+                comments: 5,
+                recording: {},
+                cards: [1, 2, 3, 4, 5, 0],
+                date: new Date(),
+                user: {
+                    name: "Daenerys Targerian",
+                    img: "img/daenerys.jpg"
+                }
+            },
+            {
+                title: "asd",
+                likes: 4,
+                comments: 5,
+                recording: {},
+                cards: [1, 2, 3, 4, 5, 6],
+                date: new Date(),
+                user: {
+                    name: "Daenerys Targerian",
+                    img: "img/daenerys.jpg"
+                },
+            }
+        ]
 
-        //Start Watching method
-        $scope.startWatching = function() {
-            // Device motion configuration
-            $scope.watch = $cordovaDeviceMotion.watchAcceleration($scope.options);
 
-            // Device motion initilaization
-            $scope.watch.then(null, function(error) {
-                console.log('Error');
-            }, function(result) {
-                // Set current data  
-                $scope.measurements.x = result.x;
-                $scope.measurements.y = result.y;
-                $scope.measurements.z = result.z;
-                $scope.measurements.timestamp = result.timestamp;
 
-            });
-        };
 
-        // Stop watching method
-        $scope.stopWatching = function() {
-            $scope.watch.clearWatch();
-        }
-
-        $ionicPlatform.ready(function() {
-            $scope.startWatching();
-        });
+        $scope.stories.forEach(function(post) {
+            post.cards = post.cards.map(function(card) {
+                return $scope.idToCard(card);
+            })
+        })
 
 
     })

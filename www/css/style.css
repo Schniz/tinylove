@@ -1,5 +1,48 @@
+.list .card.card-gallery {
+    display: block;
+    float: left;
+    margin: 0 0 0 13px;
+    padding: 0;
+    width: 93%;
+}
+
+.post-head {
+    padding-bottom: 5px;
+    min-height: 63px!important;
+}
+
+.read-now {
+    width: 80px!important;
+    height: 80px!important;
+}
+
+.ion-android-book {
+    /*font-size: 30px!important;*/
+}
+
+.small-card {
+    display: inline-block;
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.item-body p {
+    margin: 0 10px;
+}
+
+.post-body {
+    padding: 5px 16px;
+}
+
+.item h2 {
+    height: 20px;
+}
+
+
 /* General
 ==================================*/
+
 h1 {
     color: #fff;
     text-shadow: 0 1px 0px #000;
@@ -9,6 +52,7 @@ h1 {
 
 /* Utilities
 ==================================*/
+
 .title-bordered {
     border-top: solid 2px #bbb;
     padding-top: 30px;
@@ -26,6 +70,7 @@ p {
 
 /* Menu
 ==================================*/
+
 .menu .bar.bar-header.expanded {
     transition: all .5s ease-in-out;
 }
@@ -63,6 +108,7 @@ p {
 
 /* Login
 ==================================*/
+
 .app-icon {
     background-color: #fff;
     background: url('../img/crown.jpg') center;
