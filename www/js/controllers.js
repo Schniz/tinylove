@@ -312,15 +312,17 @@ angular.module('starter.controllers', [])
 
       $scope.firstPileOfCards = []
       $scope.secondPileOfCards = []
+      $scope.amountOfCardsRemaining = function() {
+        return 6 - $scope.firstPileOfCards.filter(function(e) { return e.selected }).length - $scope.secondPileOfCards.filter(function(e) { return e.selected }).length;
+      }
       $scope.selected = function(card) {
         var newValue = !card.selected;
-        var amount = $scope.firstPileOfCards.filter(function(e) { return e.selected }).length + $scope.secondPileOfCards.filter(function(e) { return e.selected }).length
-        var alreadySix = amount >= 6
+        var amountOfCardsRemaining = $scope.amountOfCardsRemaining()
+        console.log({amountOfCardsRemaining})
+        var alreadySix = amountOfCardsRemaining <= 0;
         if (newValue && alreadySix) return;
         card.selected = newValue;
-        amount = $scope.firstPileOfCards.filter(function(e) { return e.selected }).length + $scope.secondPileOfCards.filter(function(e) { return e.selected }).length
-        console.log({amount})
-        setFab(amount === 6)
+        setFab($scope.amountOfCardsRemaining() === 0)
       }
 
       $scope.cards.forEach(function(card, i) {
