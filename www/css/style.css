@@ -6,6 +6,28 @@
     width: 93%;
 }
 
+.phonebox {
+    margin: 0 auto;
+    display: block;
+    width: 250px;
+    position: absolute;
+    bottom: 10px;
+    left: 75px;
+}
+
+.phonetext {
+    text-align: center;
+    padding: 10px;
+    padding-top: 60px;
+    font-size: 2em;
+    line-height: 40px;
+}
+
+.micro {
+    text-align: center;
+    padding: 10px;
+}
+
 .post-head {
     padding-bottom: 5px;
     min-height: 63px!important;
