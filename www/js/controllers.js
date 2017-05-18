@@ -439,6 +439,8 @@ angular.module('starter.controllers', [])
     {id: 'angry', img: 'http://i.imgur.com/1MgcQg0.gif'}
   ]
 
+  $scope.audioFile =  URL.createObjectURL(latestRecording);
+
   $scope.select = function(e) {
     $scope.emotions = $scope.emotions.map(function(emotion) {
       emotion.selected = e === emotion
