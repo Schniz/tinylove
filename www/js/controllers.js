@@ -225,7 +225,8 @@ angular.module('starter.controllers', [])
                 user: {
                     name: "Daenerys Targerian",
                     img: "img/daenerys.jpg"
-                }
+                },
+                audio: "/fixtures/sound1.mp4"
             },
             {
                 title: "asd",
@@ -238,6 +239,7 @@ angular.module('starter.controllers', [])
                     name: "Daenerys Targerian",
                     img: "img/daenerys.jpg"
                 },
+                audio: "/fixtures/sound2.mp4"
             }
         ]
 
