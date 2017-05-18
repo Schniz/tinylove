@@ -252,7 +252,86 @@ angular.module('starter.controllers', [])
             })
         })
 
+    })
 
+    .controller('ChooseCardCtrl', function($scope, $rootScope, $ionicPlatform, $stateParams, $cordovaDeviceMotion, $cordovaVibration, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+        $scope.$parent.setHeaderFab(false);
+
+        window.kakipipi = $scope
+
+      function setFab(val) {
+        $scope.$$prevSibling.fab = val
+      }
+
+        ionicMaterialInk.displayEffect();
+
+        ionicMaterialMotion.pushDown({
+            selector: '.push-down'
+        });
+
+        $scope.cards = [{
+                id: 0,
+                img: "img/0.png"
+            }, {
+                id: 1,
+                img: "img/1.png"
+            },
+            {
+                id: 2,
+                img: "img/2.png"
+            },
+            {
+                id: 3,
+                img: "img/3.png"
+            },
+            {
+                id: 4,
+                img: "img/4.png"
+            },
+            {
+                id: 5,
+                img: "img/5.png"
+            },
+            {
+                id: 6,
+                img: "img/6.png"
+            },
+            {
+                id: 7,
+                img: "img/7.png"
+            },
+            {
+                id: 8,
+                img: "img/8.png"
+            }
+        ]
+
+      $scope.firstPileOfCards = []
+      $scope.secondPileOfCards = []
+      $scope.selected = function(card) {
+        var newValue = !card.selected;
+        var amount = $scope.firstPileOfCards.filter(function(e) { return e.selected }).length + $scope.secondPileOfCards.filter(function(e) { return e.selected }).length
+        var alreadySix = amount >= 6
+        if (newValue && alreadySix) return;
+        card.selected = newValue;
+        amount = $scope.firstPileOfCards.filter(function(e) { return e.selected }).length + $scope.secondPileOfCards.filter(function(e) { return e.selected }).length
+        console.log({amount})
+        setFab(amount === 6)
+      }
+
+      $scope.cards.forEach(function(card, i) {
+        (i % 2 === 1 ? $scope.firstPileOfCards : $scope.secondPileOfCards).push({
+          id: card.id,
+          img: card.img,
+          selected: false
+        })
+      })
+
+        $scope.kaki = "gal"
     })
 
 ;
