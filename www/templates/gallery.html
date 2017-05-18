@@ -1,66 +1,31 @@
-<ion-view view-title="Gallery">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-        <div></div>
-        <br/>
-        <div class="list half">
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap" ng-repeat="story in stories">
-                <div class="ink dark-bg">
-                    <h2> direction: {{measurements.x}} {{measurements.y}} {{measurements.z}}</h2>
-                    <img class="full-image" src="img/sansa-snowcastle3.jpg">
+<ion-view view-title="Tiny Stories">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list">
+
+
+            <div class="list card stable-bg" ng-repeat="post in stories">
+                <div class="item item-avatar post-head"> <img ng-src="{{post.user.img}}">
+                    <h2>{{post.user.name}}</h2>
+                    <p>{{post.date | date: 'short'}}</p>
+                </div>
+                <div class="item item-body post-body">{{post.title}}
+                    <div class="post-cards">
+                        <div class="small-card" ng-repeat="card in post.cards">
+                            <img ng-src="{{card.img}}">
+                        </div>
+                    </div>
+                    <p> <a class="subdued">{{post.likes}} Tiny Loves</a> <a class="subdued">{{post.comments}} Comments</a> </p>
+                    <div class="player"> </div>
+
+
                 </div>
                 <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i> 4
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i> 2
-                    </a>
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-heart"></i> Love </a>
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-chatbox"></i> Comment </a>
+                    <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-share"></i> Share </a>
                 </div>
             </div>
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>{{err}} {{ori}}</h2>
-                    <img class="full-image" src="img/sansa-snowcastle.png">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i> 6
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i> 1
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="list half">
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>Making Olaf a House</h2>
-                    <img class="full-image" src="img/sansa-snowcastle2.jpg">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i> 22
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i> 9
-                    </a>
-                </div>
-            </div>
-            <div ui-sref="app.profile" class="card card-gallery item item-text-wrap">
-                <div class="ink dark-bg">
-                    <h2>ohai!</h2>
-                    <img class="full-image" src="img/sansa-snowcastle4.jpg">
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item stable-bg assertive">
-                        <i class="icon ion-heart"></i> 8
-                    </a>
-                    <a class="tab-item stable-bg positive-900">
-                        <i class="icon ion-chatbubbles"></i> 0
-                    </a>
-                </div>
-            </div>
+
         </div>
     </ion-content>
 </ion-view>
