@@ -155,7 +155,7 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
     })
-    .controller('RecordCtrl', function($scope, $rootScope, $stateParams, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('RecordCtrl', function($scope, $rootScope, $stateParams, $cordovaVibration, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
@@ -188,6 +188,8 @@ angular.module('starter.controllers', [])
                                         $scope.conn = $cordovaBluetoothSerial.connect(device.address).subscribe(
                                             function(x) {
                                                 alert('connected!');
+
+                                                // start recording
                                             });
                                     },
                                     function() {
