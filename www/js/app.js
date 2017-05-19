@@ -50,11 +50,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             'fabContent': {
                 template: '<button ng-click="stopRecording()" id="fab-activity" class="button button-fab button-fab-bottom-right expanded button-energized-900 flap"><i class="icon ion-checkmark"></i></button>',
                 controller: function($timeout, $scope) {
-                  $scope.stopRecording = function() {
-                    $scope.$$nextSibling.stopAudio(function(blob) {
-                      console.log({blob})
-                    })
-                  }
+                    $scope.stopRecording = function() {
+                        $scope.$$nextSibling.stopAudio(function(blob) {
+                            console.log({ blob })
+                        })
+                    }
                     $timeout(function() {
                         document.getElementById('fab-activity').classList.toggle('on');
                     }, 200);
@@ -107,7 +107,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 controller: 'FinishedCtrl'
             },
             'fabContent': {
-                template: '<button ui-sref="app.choose-card" id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-android-book"></i></button>',
+                template: '<button ui-sref="app.gallery" id="fab-gallery" class="button button-fab button-fab-bottom-right expanded button-energized-900 drop read-now"><i class="icon ion-checkmark"></i></button>',
                 controller: function($timeout, $scope) {
                     $timeout(function() {
                         document.getElementById('fab-gallery').classList.toggle('on');

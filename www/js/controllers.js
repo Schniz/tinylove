@@ -155,7 +155,7 @@ angular.module('starter.controllers', [])
         // Activate ink for controller
         ionicMaterialInk.displayEffect();
     })
-    .controller('RecordCtrl', function($scope, $sce, $rootScope, $stateParams, $cordovaVibration, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    .controller('RecordCtrl', function($scope, $sce, $state, $rootScope, $stateParams, $cordovaVibration, $cordovaBluetoothSerial, $ionicPlatform, $timeout, ionicMaterialMotion, ionicMaterialInk) {
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = true;
@@ -257,7 +257,7 @@ angular.module('starter.controllers', [])
                 $cordovaVibration.vibrate(2000);
             }, 1000);
 
-            $cordovaBluetoothSerial.write(1, function() {
+            $cordovaBluetoothSerial.write('g', function() {
                 console.log("boom");
             }, function(err) {
                 console.log("no boom " + err);
@@ -326,7 +326,7 @@ angular.module('starter.controllers', [])
         }
 
         var date = Date.now();
-        $scope.stories = [{
+        $rootScope.stories = [{
                 title: "The best story ever",
                 likes: 4,
                 comments: 5,
@@ -334,21 +334,21 @@ angular.module('starter.controllers', [])
                 cards: [1, 2, 3, 4, 5, 0],
                 date: new Date(),
                 user: {
-                    name: "Daenerys Targerian",
-                    img: "img/daenerys.jpg"
+                    name: "Gal Shlezinger",
+                    img: "img/gal.jpg"
                 },
                 audio: "fixtures/sound1.mp4"
             },
             {
-                title: "asd",
+                title: "An even better STORY!",
                 likes: 4,
                 comments: 5,
                 recording: {},
-                cards: [1, 2, 3, 4, 5, 6],
+                cards: [1, 2, 3, 4, 5, 0],
                 date: new Date(),
                 user: {
-                    name: "Daenerys Targerian",
-                    img: "img/daenerys.jpg"
+                    name: "Gal Shlezinger",
+                    img: "img/gal.jpg"
                 },
                 audio: "fixtures/sound2.mp4"
             }
@@ -357,7 +357,7 @@ angular.module('starter.controllers', [])
 
 
 
-        $scope.stories.forEach(function(post) {
+        $rootScope.stories.forEach(function(post) {
             post.cards = post.cards.map(function(card) {
                 return $scope.idToCard(card);
             })
@@ -468,6 +468,24 @@ angular.module('starter.controllers', [])
     ]
 
     $scope.audioFile = URL.createObjectURL(latestRecording);
+
+
+
+    // $scope.share = function() {
+    $rootScope.stories.push({
+        title: $scope.title,
+        likes: 0,
+        comments: 0,
+        recording: {},
+        cards: [1, 2, 3, 4, 5, 0],
+        date: new Date(),
+        user: {
+            name: "Gal Shlezinger",
+            img: "img/gal.jpg"
+        },
+        audio: $scope.audioFile
+    });
+    // }
 
     $scope.select = function(e) {
         $scope.emotions = $scope.emotions.map(function(emotion) {
